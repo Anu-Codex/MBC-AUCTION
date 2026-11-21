@@ -977,9 +977,9 @@ body:has(#adminUserManagement:not(.hidden)) .admin-only-control { display: inlin
                                 <thead class="bg-slate-100 sticky top-0 z-10 text-[10px] uppercase tracking-[0.2em] text-blue-900 font-black border-b border-blue-200">
                                     <tr>
                                         <th class="p-5">Player Identity</th>
-                                        <th class="p-5">Strength</th>
+                                        <th class="p-5">Div</th>
                                         <th class="p-5">Phone</th>
-                                        <th class="p-5">Tier</th>
+                                        <th class="p-5">Crew</th>
                                         <th class="p-5">Status</th>
                                         <th class="p-5">Base Value</th>
                                         <th class="p-5 text-center">Card</th>
@@ -1124,12 +1124,7 @@ body:has(#adminUserManagement:not(.hidden)) .admin-only-control { display: inlin
                         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
                             <input id="pName" type="text" placeholder="Name" class="w-full bg-slate-50 border border-blue-200 p-3 rounded-xl text-slate-900 font-semibold outline-none focus:border-blue-600">
                             <input id="pStrength" type="number" placeholder="Current Star" class="w-full bg-slate-50 border border-blue-200 p-3 rounded-xl text-slate-900 font-semibold outline-none focus:border-blue-600">
-                            <select id="pType" class="w-full bg-slate-50 border border-blue-200 p-3 rounded-xl text-slate-900 font-bold outline-none focus:border-blue-600">
-                                <option> BIG TIME</option>
-                                <option> EPIC</option>
-                                <option>SHOWTIME</option>
-                                <option> HIGHLIGHT</option>
-                            </select>
+                            <input id="pType" type="text" placeholder="CREW NAME" class="w-full bg-slate-50 border border-blue-200 p-3 rounded-xl text-slate-900 font-semibold outline-none focus:border-blue-600">
                             <input id="pBase" type="number" placeholder="Base (M)" class="w-full bg-slate-50 border border-blue-200 p-3 rounded-xl text-slate-900 font-semibold outline-none focus:border-blue-600">
                             <input id="pPhone" type="number" placeholder="Phone No" class="w-full bg-slate-50 border border-blue-200 p-3 rounded-xl text-slate-900 font-semibold outline-none focus:border-blue-600">
 
@@ -1653,7 +1648,7 @@ function renderTeams(teams) {
             <span class="mystery-glitch">?</span>
         </div>` : `
         <div class="premium-card-neon w-64 h-80 rounded-[2rem] p-6 flex flex-col items-center justify-between shadow-2xl">
-            <span class="text-4xl font-black text-cyan-400">Str ${p.strength}</span>
+            <span class="text-4xl font-black text-cyan-400">DIV ${p.strength}</span>
             <div class="text-center"><h2 class="text-3xl player-name-prominent uppercase italic">${p.name}</h2></div>
             <div class="bg-cyan-400 text-black px-4 py-1.5 rounded-full font-black text-[10px] uppercase">${p.cardType}</div>
         </div>`;
@@ -1778,7 +1773,7 @@ function renderTeams(teams) {
             imageUrl: uploadedUrl
         };
         socket.emit('addPlayer', data);
-        ['pName', 'pStrength', 'pBase', 'pPhone', 'pImgFile'].forEach(id => { if(document.getElementById(id)) document.getElementById(id).value = ''; });
+        ['pName', 'pStrength', 'pType', 'pBase', 'pPhone', 'pImgFile'].forEach(id => { if(document.getElementById(id)) document.getElementById(id).value = ''; });
     }
 
     async function uploadToImgBB(file) {
@@ -2662,7 +2657,7 @@ async function generatePDF() {
     doc.setTextColor(...colors.cyan);
     doc.setFontSize(28);
     doc.setFont("helvetica", "bold");
-    doc.text("NEXUS LEGENDS", 105, 20, { align: "center" });
+    doc.text("LEVERAGE EFOOTBALL COMMUNITY", 105, 20, { align: "center" });
     
     doc.setTextColor(150, 150, 150);
     doc.setFontSize(9);
@@ -2729,7 +2724,7 @@ async function generatePDF() {
 
     doc.autoTable({
         startY: 30, // Starts at the top of Page 2
-        head: [['#', 'PLAYER IDENTITY', 'STRENGTH', 'TIER', 'FRANCHISE', 'PRICE']],
+        head: [['#', 'PLAYER IDENTITY', 'DIV', 'CREW', 'FRANCHISE', 'PRICE']],
         body: soldPlayersRows,
         theme: 'grid',
         styles: { fontSize: 8, cellPadding: 3, fillColor: [15, 15, 15], textColor: [240, 240, 240], lineColor: [40, 40, 40] },
@@ -2752,11 +2747,11 @@ async function generatePDF() {
         doc.setPage(i);
         doc.setFontSize(7);
         doc.setTextColor(100, 100, 100);
-        doc.text(`NEXUS LEGENDS - OFFICIAL LOG - PAGE ${i} OF ${totalPages}`, 105, 290, { align: "center" });
+        doc.text(`LEVERAGE EFOOTBALL COMMUNITY - OFFICIAL LOG - PAGE ${i} OF ${totalPages}`, 105, 290, { align: "center" });
         doc.text("GENERATED BY RAIZO CORE SYSTEM", 105, 292, { align: "center" });
     }
 
-    doc.save(`Nexus_Elite_Report_${new Date().getTime()}.pdf`);
+    doc.save(`MBC_Elite_Report_${new Date().getTime()}.pdf`);
 }
         if(user) startApp();
     else showAuthStep('choice');
